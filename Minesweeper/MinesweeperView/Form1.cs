@@ -13,31 +13,29 @@ namespace MinesweeperView
 {
     public partial class Form1 : Form
     {
-        private Field _field;
         const int ROW_CNT = 5;
         const int COL_CNT = 10;
+        private Field _field;
 
         public Form1()
         {
             InitializeComponent();
-            initializeField();
+            createFieldComponent();
+            _field = new Field(ROW_CNT, COL_CNT);
         }
 
-        private void initializeField()
+        private void createFieldComponent()
         {
-            _field = new Field(ROW_CNT, COL_CNT);
 
             const int HEIGHT = 40;
             const int WIDTH = 40;
 
             const int LOC_X_DEFAULT = 10;
+            const int LOC_Y_DEFAULT = 10;
             int locX = LOC_X_DEFAULT;
-            int locY = 10;
+            int locY = LOC_Y_DEFAULT;
             int ind = 0;
-
-
-            int cellCnt = ROW_CNT * COL_CNT;
-            for (int i = 0; i < cellCnt; i++)
+            for (int i = 0; i < ROW_CNT * COL_CNT; i++)
             {
                 // ボタン生成
                 var bt = new Button();
@@ -73,13 +71,11 @@ namespace MinesweeperView
             _field.Open(row, col);
             MessageBox.Show(row+" + "+col);
         }
-
         private int getRow(string name)
         {
             int ind = int.Parse(name.Substring(3));
             return ind % ROW_CNT;
         }
-
         private int getCol(string name)
         {
             int ind = int.Parse(name.Substring(3));
@@ -87,7 +83,7 @@ namespace MinesweeperView
             return (int)Math.Truncate(ret);
         }
 
-        public void Update(Field field)
+        public void Update(Cell cell)
         {
 
         }
