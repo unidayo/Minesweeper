@@ -14,6 +14,8 @@ namespace MinesweeperView
     public partial class Form1 : Form
     {
         private Field _field;
+        const int ROW_CNT = 5;
+        const int COL_CNT = 10;
 
         public Form1()
         {
@@ -23,8 +25,6 @@ namespace MinesweeperView
 
         private void initializeField()
         {
-            const int ROW_CNT = 5;
-            const int COL_CNT = 10;
             _field = new Field(ROW_CNT, COL_CNT);
 
             const int HEIGHT = 40;
@@ -63,13 +63,28 @@ namespace MinesweeperView
                     locX += HEIGHT;
                 }
             }
-
-            Update(_field);
         }
 
         private void Cell_MouseDown(object sender, MouseEventArgs e)
         {
-            throw new NotImplementedException();
+            Button bt = sender as Button;
+            int row = getRow(bt.Name);
+            int col = getCol(bt.Name);
+            _field.Open(row, col);
+            MessageBox.Show(row+" + "+col);
+        }
+
+        private int getRow(string name)
+        {
+            int ind = int.Parse(name.Substring(3));
+            return ind % ROW_CNT;
+        }
+
+        private int getCol(string name)
+        {
+            int ind = int.Parse(name.Substring(3));
+            decimal ret = ind / ROW_CNT;
+            return (int)Math.Truncate(ret);
         }
 
         public void Update(Field field)

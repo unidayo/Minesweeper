@@ -18,6 +18,17 @@ namespace Minesweeper
 
         public int LineCount { get { return _lineCount; } }
         public int ColumnCount { get { return _columnCount; } }
+
+        public Cell GetCell(int v1, int v2)
+        {
+            // TODO:実装
+            return new Cell(1, 1, false);
+        }
+
+        public void Open(int row, int column)
+        {
+            // TODO:実装
+        }
     }
 }
  
