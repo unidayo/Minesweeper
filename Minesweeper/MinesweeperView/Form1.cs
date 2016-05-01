@@ -17,12 +17,12 @@ namespace MinesweeperView
         const int ROW_CNT = 5;
         const int COL_CNT = 10;
 
+        // Initialize
         public Form1()
         {
             InitializeComponent();
             initializeField();
         }
-
         private void initializeField()
         {
             _field = new Field(ROW_CNT, COL_CNT);
@@ -65,31 +65,31 @@ namespace MinesweeperView
             }
         }
 
+        // Observer
+        public void Update(Cell cell)
+        {
+
+        }
+
+        // CellClick
         private void Cell_MouseDown(object sender, MouseEventArgs e)
         {
             Button bt = sender as Button;
             int row = getRow(bt.Name);
             int col = getColumn(bt.Name);
             _field.Open(row, col);
-            MessageBox.Show(row+" + "+col);
+            MessageBox.Show(row + " + " + col);
         }
-
         private int getRow(string name)
         {
             int ind = int.Parse(name.Substring(3));
             decimal ret = ind / ROW_CNT;
             return (int)Math.Truncate(ret);
         }
-
         private int getColumn(string name)
         {
             int ind = int.Parse(name.Substring(3));
             return ind % ROW_CNT;
-        }
-
-        public void Update(Field field)
-        {
-
         }
     }
 }

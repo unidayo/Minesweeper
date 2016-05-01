@@ -8,6 +8,10 @@ namespace Minesweeper
 {
     public class FieldFactory
     {
-
+        public Field Create()
+        {
+            Field field = new Field(15,10);
+            return field;
+        }
     }
 }

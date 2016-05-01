@@ -22,7 +22,7 @@ namespace Minesweeper
         public Cell GetCell(int v1, int v2)
         {
             // TODO:実装
-            return new Cell(1, 1, false);
+            return new Cell(1, 1);
         }
 
         public void Open(int row, int column)

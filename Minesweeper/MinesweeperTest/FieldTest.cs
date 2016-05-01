@@ -31,7 +31,13 @@ namespace MinesweeperTest
             var field = new Field(2, 3);
             field.Open(1, 1);
 
-            // TODO:オープンのテスト
+            // TODO: Implement
+        }
+
+        [TestMethod]
+        public void SetMine()
+        {
+
         }
     }
 }
