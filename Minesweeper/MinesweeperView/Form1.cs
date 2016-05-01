@@ -50,7 +50,7 @@ namespace MinesweeperView
                 bt.Margin = new Padding(0);
                 bt.MouseDown += Cell_MouseDown;
                 this.Controls.Add(bt);
-
+                
                 // 位置インクリメント
                 ind++;
                 if (ind % ROW_CNT == 0)
@@ -69,7 +69,7 @@ namespace MinesweeperView
         {
             Button bt = sender as Button;
             int row = getRow(bt.Name);
-            int col = getCol(bt.Name);
+            int col = getColumn(bt.Name);
             _field.Open(row, col);
             MessageBox.Show(row+" + "+col);
         }
@@ -77,14 +77,14 @@ namespace MinesweeperView
         private int getRow(string name)
         {
             int ind = int.Parse(name.Substring(3));
-            return ind % ROW_CNT;
-        }
-
-        private int getCol(string name)
-        {
-            int ind = int.Parse(name.Substring(3));
             decimal ret = ind / ROW_CNT;
             return (int)Math.Truncate(ret);
+        }
+
+        private int getColumn(string name)
+        {
+            int ind = int.Parse(name.Substring(3));
+            return ind % ROW_CNT;
         }
 
         public void Update(Field field)
