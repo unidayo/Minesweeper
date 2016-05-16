@@ -36,8 +36,7 @@ namespace MinesweeperTest
         {
             var field = new Field(2, 3);
             field.Open(1, 1);
-
-            // TODO:オープンのテスト
+            Assert.IsTrue(field.GetCell(1, 1).IsOpen);
         }
     }
 }

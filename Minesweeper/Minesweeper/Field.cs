@@ -12,6 +12,7 @@ namespace Minesweeper
         private readonly int _lineCount;
         private readonly int _columnCount;
         private IList<Cell> _cellList;
+        public event Action<Cell> CellChanged;
 
         public Field(int lineCount, int columnCount)
         {
@@ -45,7 +46,17 @@ namespace Minesweeper
 
         public void Open(int row, int column)
         {
-            // TODO:実装
+            Debug.Assert(row < _lineCount && column < ColumnCount, "存在しないセルは指定できません");
+
+            Cell cell = GetCell(row, column);
+            cell.Open();
+            onCellChanged(cell);
+        }
+
+        private void onCellChanged(Cell cell)
+        {
+            if (CellChanged != null)
+                CellChanged(cell);
         }
     }
 }

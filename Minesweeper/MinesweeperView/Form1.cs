@@ -22,11 +22,11 @@ namespace MinesweeperView
             InitializeComponent();
             createFieldComponent();
             _field = new Field(ROW_CNT, COL_CNT);
+            _field.CellChanged += Update;
         }
 
         private void createFieldComponent()
         {
-
             const int HEIGHT = 40;
             const int WIDTH = 40;
 
@@ -46,19 +46,20 @@ namespace MinesweeperView
                 bt.Text = string.Empty;
                 bt.UseVisualStyleBackColor = true;
                 bt.Margin = new Padding(0);
+                bt.FlatStyle = FlatStyle.Standard;
                 bt.MouseDown += Cell_MouseDown;
                 this.Controls.Add(bt);
 
                 // 位置インクリメント
                 ind++;
-                if (ind % ROW_CNT == 0)
+                if (ind % COL_CNT == 0)
                 {
                     locX = LOC_X_DEFAULT;
-                    locY += WIDTH;
+                    locY += HEIGHT;
                 }
                 else
                 {
-                    locX += HEIGHT;
+                    locX += WIDTH;
                 }
             }
         }
@@ -68,24 +69,44 @@ namespace MinesweeperView
             Button bt = sender as Button;
             int row = getRow(bt.Name);
             int col = getCol(bt.Name);
-            _field.Open(row, col);
-            MessageBox.Show(row+" + "+col);
+
+            if (e.Button == MouseButtons.Left)
+                _field.Open(row, col);
+            //else if (e.Button == MouseButtons.Right)
         }
         private int getRow(string name)
         {
             int ind = int.Parse(name.Substring(3));
-            return ind % ROW_CNT;
+            decimal ret = ind / COL_CNT;
+            return (int)Math.Truncate(ret);
         }
         private int getCol(string name)
         {
             int ind = int.Parse(name.Substring(3));
-            decimal ret = ind / ROW_CNT;
-            return (int)Math.Truncate(ret);
+            return ind % COL_CNT;
         }
 
         public void Update(Cell cell)
         {
-
+            Button btn = getCellControl(cell.Row, cell.Column);
+            btn.FlatStyle = cell.IsOpen ? FlatStyle.Flat : FlatStyle.Standard;
+            if (cell.IsOpen)
+                btn.Text = cell.SurroundingMineCnt == 0 ? string.Empty : cell.SurroundingMineCnt.ToString();
+            else if (cell.Mark == CELL_MARK.FLAG)
+                btn.Text = "✓";
+            else if (cell.Mark == CELL_MARK.QUESTION)
+                btn.Text = "？";
+        }
+        private Button getCellControl(int row, int column)
+        {
+            int nameInt = row * COL_CNT + column;
+            string name = "Btn" + nameInt.ToString();
+            foreach (Control cnt in Controls)
+            {
+                if (cnt.Name == name)
+                    return cnt as Button;
+            }
+            return null;
         }
     }
 }

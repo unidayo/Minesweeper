@@ -31,14 +31,11 @@ namespace Minesweeper
 
         public int Row { get { return _row; } }
         public int Column { get { return _column; } }
+        public bool HasMine { get { return _hasMine; } }
 
         public bool IsOpen { get { return _isOpen; } }
-
         public CELL_MARK Mark { get { return _mark; } }
-
         public int SurroundingMineCnt { get { return _surroungingMineCnt; } }
-
-        public bool HasMine { get { return _hasMine; } }
 
         public void ChangeMark()
         {
@@ -46,17 +43,14 @@ namespace Minesweeper
             else if (_mark == CELL_MARK.FLAG)     _mark = CELL_MARK.QUESTION;
             else if (_mark == CELL_MARK.QUESTION) _mark = CELL_MARK.NONE;
         }
-
         public void Open()
         {
             _isOpen = true;
         }
-
         public void SetMine()
         {
             this._hasMine = true;
         }
-
         public void SetSurroundingMineCnt(int mineCnt)
         {
             _surroungingMineCnt = mineCnt;
