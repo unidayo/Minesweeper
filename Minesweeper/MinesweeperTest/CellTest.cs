@@ -10,7 +10,7 @@ namespace MinesweeperTest
         [TestMethod]
         public void Ctor()
         {
-            var cell = new Cell(0, 0, false);
+            var cell = new Cell(0, 0);
             Assert.IsFalse(cell.IsOpen);
             Assert.AreEqual(0, cell.SurroundingMineCnt);
         }
@@ -18,7 +18,7 @@ namespace MinesweeperTest
         [TestMethod]
         public void Open()
         {
-            var cell = new Cell(0, 0, false);
+            var cell = new Cell(0, 0);
             Assert.IsFalse(cell.IsOpen);
             cell.Open();
             Assert.IsTrue(cell.IsOpen);
@@ -27,7 +27,7 @@ namespace MinesweeperTest
         [TestMethod]
         public void ChangeMark()
         {
-            var cell = new Cell(0, 0, false);
+            var cell = new Cell(0, 0);
             Assert.AreEqual(CELL_MARK.NONE, cell.Mark,"前");
             cell.ChangeMark();
             Assert.AreEqual(CELL_MARK.FLAG, cell.Mark,"1回変更");
@@ -38,9 +38,17 @@ namespace MinesweeperTest
         }
 
         [TestMethod]
+        public void SetMine()
+        {
+            var cell = new Cell(0, 0);
+            cell.SetMine();
+            Assert.IsTrue(cell.HasMine);
+        }
+
+        [TestMethod]
         public void SetSurrongingMineCnt()
         {
-            var cell = new Cell(0, 0, false);
+            var cell = new Cell(0, 0);
             Assert.AreEqual(0, cell.SurroundingMineCnt);
             cell.SetSurroundingMineCnt(2);
             Assert.AreEqual(2, cell.SurroundingMineCnt);

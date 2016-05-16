@@ -17,16 +17,16 @@ namespace Minesweeper
     {
         private readonly int _row;
         private readonly int _column;
-        private readonly bool _hasMine;
+        private bool _hasMine;
         private bool _isOpen = false;
         private CELL_MARK _mark = CELL_MARK.NONE;
         private int _surroungingMineCnt;
 
-        public Cell(int row, int column, bool hasMine)
+        public Cell(int row, int column)
         {
             this._row = row;
             this._column = column;
-            this._hasMine = hasMine;
+            this._hasMine = false;
         }
 
         public bool IsOpen { get { return _isOpen; } }
@@ -34,6 +34,8 @@ namespace Minesweeper
         public CELL_MARK Mark { get { return _mark; } }
 
         public int SurroundingMineCnt { get { return _surroungingMineCnt; } }
+
+        public bool HasMine { get { return _hasMine; } }
 
         public void ChangeMark()
         {
@@ -45,6 +47,11 @@ namespace Minesweeper
         public void Open()
         {
             _isOpen = true;
+        }
+
+        public void SetMine()
+        {
+            this._hasMine = true;
         }
 
         public void SetSurroundingMineCnt(int mineCnt)
