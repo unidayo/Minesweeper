@@ -29,6 +29,9 @@ namespace Minesweeper
             this._hasMine = false;
         }
 
+        public int Row { get { return _row; } }
+        public int Column { get { return _column; } }
+
         public bool IsOpen { get { return _isOpen; } }
 
         public CELL_MARK Mark { get { return _mark; } }

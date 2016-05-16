@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +11,36 @@ namespace Minesweeper
     {
         private readonly int _lineCount;
         private readonly int _columnCount;
+        private IList<Cell> _cellList;
+
         public Field(int lineCount, int columnCount)
         {
+            Debug.Assert(lineCount > 0 && columnCount > 0, "フィールドは1x1マス以上");
+
             this._lineCount = lineCount;
             this._columnCount = columnCount;
+
+            _cellList = new List<Cell>();
+            for (int row = 0; row < lineCount; row++)
+            {
+                for (int col = 0; col < columnCount; col++)
+                {
+                    _cellList.Add(new Cell(row, col));
+                }
+            }
         }
 
         public int LineCount { get { return _lineCount; } }
         public int ColumnCount { get { return _columnCount; } }
 
-        public Cell GetCell(int v1, int v2)
+        public Cell GetCell(int row, int column)
         {
-            // TODO:実装
-            return new Cell(1, 1, false);
+            foreach (var cell in _cellList)
+            {
+                if (cell.Row == row && cell.Column == column)
+                    return cell;
+            }
+            return null;
         }
 
         public void Open(int row, int column)

@@ -20,9 +20,15 @@ namespace MinesweeperTest
         {
             var field = new Field(3, 4);
             Cell cl = field.GetCell(1, 1);
+            Assert.AreEqual(1, cl.Row);
+            Assert.AreEqual(1, cl.Column);
             Assert.IsFalse(cl.IsOpen);
             Assert.AreEqual(0, cl.SurroundingMineCnt);
             Assert.AreEqual(CELL_MARK.NONE, cl.Mark);
+
+            cl = field.GetCell(2, 3);
+            Assert.AreEqual(2, cl.Row);
+            Assert.AreEqual(3, cl.Column);
         }
 
         [TestMethod]
