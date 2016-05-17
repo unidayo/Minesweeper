@@ -21,6 +21,17 @@ namespace Minesweeper
             return ret;
         }
 
+        private bool fieldIsRectangle(IList<string> lineList)
+        {
+            int firstLineColumnCount = lineList[0].Length;
+            foreach (var line in lineList)
+            {
+                if (line.Length != firstLineColumnCount)
+                    return false;
+            }
+            return true;
+        }
+
         private static Field createEmptyField(IList<string> lineList)
         {
             int rowCnt = lineList.Count;
@@ -43,17 +54,6 @@ namespace Minesweeper
         private static bool isMine(char ch)
         {
             return ch == '*';
-        }
-
-        private bool fieldIsRectangle(IList<string> lineList)
-        {
-            int firstLineColumnCount = lineList[0].Length;
-            foreach (var line in lineList)
-            {
-                if (line.Length != firstLineColumnCount)
-                    return false;
-            }
-            return true;
         }
     }
 }
