@@ -21,7 +21,14 @@ namespace MinesweeperView
         {
             InitializeComponent();
             createFieldComponent();
-            _field = new Field(ROW_CNT, COL_CNT);
+
+            // todo:const field -> randam map
+            var fieldMap = new List<string> { "......*...",
+                                              "..*.....*.",
+                                              ".....*....",
+                                              ".....*..*.",
+                                              ".*........"};
+            _field = new FieldFactory().ReadLineList(fieldMap);
             _field.CellChanged += Update;
         }
 
