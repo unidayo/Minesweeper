@@ -71,8 +71,9 @@ namespace MinesweeperView
             int col = getCol(bt.Name);
 
             if (e.Button == MouseButtons.Left)
-                _field.Open(row, col);
-            //else if (e.Button == MouseButtons.Right)
+                _field.OpenCell(row, col);
+            else if (e.Button == MouseButtons.Right)
+                _field.MarkCell(row, col);
         }
         private int getRow(string name)
         {
@@ -90,12 +91,16 @@ namespace MinesweeperView
         {
             Button btn = getCellControl(cell.Row, cell.Column);
             btn.FlatStyle = cell.IsOpen ? FlatStyle.Flat : FlatStyle.Standard;
-            if (cell.IsOpen)
+            if (cell.IsOpen && cell.HasMine)
+                btn.Text = "※";
+            else if (cell.IsOpen)
                 btn.Text = cell.SurroundingMineCnt == 0 ? string.Empty : cell.SurroundingMineCnt.ToString();
             else if (cell.Mark == CELL_MARK.FLAG)
                 btn.Text = "✓";
             else if (cell.Mark == CELL_MARK.QUESTION)
                 btn.Text = "？";
+            else
+                btn.Text = string.Empty;
         }
         private Button getCellControl(int row, int column)
         {

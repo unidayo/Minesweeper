@@ -32,11 +32,23 @@ namespace MinesweeperTest
         }
 
         [TestMethod]
-        public void Open()
+        public void OpenCell()
         {
             var field = new Field(2, 3);
-            field.Open(1, 1);
+            field.OpenCell(1, 1);
             Assert.IsTrue(field.GetCell(1, 1).IsOpen);
+        }
+
+        [TestMethod]
+        public void MarkCell()
+        {
+            var field = new Field(2, 3);
+            field.MarkCell(1, 2);
+            Assert.AreEqual(CELL_MARK.FLAG, field.GetCell(1, 2).Mark);
+            field.MarkCell(1, 2);
+            Assert.AreEqual(CELL_MARK.QUESTION, field.GetCell(1, 2).Mark);
+            field.MarkCell(1, 2);
+            Assert.AreEqual(CELL_MARK.NONE, field.GetCell(1, 2).Mark);
         }
     }
 }

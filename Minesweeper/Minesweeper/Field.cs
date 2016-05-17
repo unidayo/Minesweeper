@@ -43,11 +43,14 @@ namespace Minesweeper
             }
             return null;
         }
-
-        public void Open(int row, int column)
+        public void MarkCell(int row, int column)
         {
-            Debug.Assert(row < _lineCount && column < ColumnCount, "存在しないセルは指定できません");
-
+            Cell cell = GetCell(row, column);
+            cell.ChangeMark();
+            onCellChanged(cell);
+        }
+        public void OpenCell(int row, int column)
+        {
             Cell cell = GetCell(row, column);
             cell.Open();
             onCellChanged(cell);
