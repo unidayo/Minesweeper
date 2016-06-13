@@ -13,6 +13,7 @@ namespace Minesweeper
         private readonly int _columnCount;
         private IList<Cell> _cellList;
         public event Action<Cell> CellChanged;
+        public event Action MineOpened;
 
         public Field(int lineCount, int columnCount)
         {
@@ -54,12 +55,19 @@ namespace Minesweeper
             Cell cell = GetCell(row, column);
             cell.Open();
             onCellChanged(cell);
+            if(cell.HasMine)
+                onMineOpened();
         }
 
         private void onCellChanged(Cell cell)
         {
             if (CellChanged != null)
                 CellChanged(cell);
+        }
+        private void onMineOpened()
+        {
+            if (MineOpened != null)
+                MineOpened();
         }
     }
 }

@@ -30,6 +30,7 @@ namespace MinesweeperView
                                               ".*........"};
             _field = new FieldFactory().ReadLineList(fieldMap);
             _field.CellChanged += Update;
+            _field.MineOpened += GameOver;
         }
 
         private void createFieldComponent()
@@ -38,7 +39,7 @@ namespace MinesweeperView
             const int WIDTH = 40;
 
             const int LOC_X_DEFAULT = 10;
-            const int LOC_Y_DEFAULT = 10;
+            const int LOC_Y_DEFAULT = 60;
             int locX = LOC_X_DEFAULT;
             int locY = LOC_Y_DEFAULT;
             int ind = 0;
@@ -94,6 +95,26 @@ namespace MinesweeperView
             return ind % COL_CNT;
         }
 
+        private void BtnReset_Click(object sender, EventArgs e)
+        {
+            var fieldMap = new List<string> { "......*...",
+                                              "..*.....*.",
+                                              ".....*....",
+                                              ".....*..*.",
+                                              ".*........"};
+            _field = new FieldFactory().ReadLineList(fieldMap);
+            _field.CellChanged += Update;
+            _field.MineOpened += GameOver;
+
+            for (int i = 0; i < ROW_CNT; i++)
+            {
+                for (int j = 0; j < COL_CNT; j++)
+                {
+                    Update(_field.GetCell(i, j));
+                }
+            }
+            BtnReset.Text = "リセット";
+        }
         public void Update(Cell cell)
         {
             Button btn = getCellControl(cell.Row, cell.Column);
@@ -108,6 +129,10 @@ namespace MinesweeperView
                 btn.Text = "？";
             else
                 btn.Text = string.Empty;
+        }
+        public void GameOver()
+        {
+            BtnReset.Text = "ゲームオーバー！";
         }
         private Button getCellControl(int row, int column)
         {

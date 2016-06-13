@@ -28,13 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.BtnReset = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // BtnReset
+            // 
+            this.BtnReset.Location = new System.Drawing.Point(161, 12);
+            this.BtnReset.Name = "BtnReset";
+            this.BtnReset.Size = new System.Drawing.Size(81, 39);
+            this.BtnReset.TabIndex = 0;
+            this.BtnReset.Text = "リセット";
+            this.BtnReset.UseVisualStyleBackColor = true;
+            this.BtnReset.Click += new System.EventHandler(this.BtnReset_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(472, 472);
+            this.Controls.Add(this.BtnReset);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -42,6 +54,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button BtnReset;
     }
 }
 
