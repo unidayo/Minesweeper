@@ -7,34 +7,34 @@ namespace MinesweeperTest
     [TestClass]
     public class FieldTest
     {
+        private Field field;
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            field = new Field(2, 3);
+        }
+
         [TestMethod]
         public void Ctor()
         {
-            var field = new Field(3, 4);
-            Assert.AreEqual(3, field.LineCount);
-            Assert.AreEqual(4, field.ColumnCount);
+            Assert.AreEqual(2, field.LineCount);
+            Assert.AreEqual(3, field.ColumnCount);
         }
 
         [TestMethod]
         public void GetCell()
         {
-            var field = new Field(3, 4);
             Cell cl = field.GetCell(1, 1);
             Assert.AreEqual(1, cl.Row);
             Assert.AreEqual(1, cl.Column);
             Assert.IsFalse(cl.IsOpen);
             Assert.AreEqual(0, cl.SurroundingMineCnt);
             Assert.AreEqual(CELL_MARK.NONE, cl.Mark);
-
-            cl = field.GetCell(2, 3);
-            Assert.AreEqual(2, cl.Row);
-            Assert.AreEqual(3, cl.Column);
         }
 
         [TestMethod]
         public void OpenCell()
         {
-            var field = new Field(2, 3);
             field.OpenCell(1, 1);
             Assert.IsTrue(field.GetCell(1, 1).IsOpen);
         }
@@ -42,13 +42,22 @@ namespace MinesweeperTest
         [TestMethod]
         public void MarkCell()
         {
-            var field = new Field(2, 3);
             field.MarkCell(1, 2);
             Assert.AreEqual(CELL_MARK.FLAG, field.GetCell(1, 2).Mark);
             field.MarkCell(1, 2);
             Assert.AreEqual(CELL_MARK.QUESTION, field.GetCell(1, 2).Mark);
             field.MarkCell(1, 2);
             Assert.AreEqual(CELL_MARK.NONE, field.GetCell(1, 2).Mark);
+        }
+
+        [TestMethod]
+        public void SetMine()
+        {
+            field.SetMine(1, 2);
+            Assert.IsTrue(field.GetCell(1, 2).HasMine);
+            Assert.AreEqual(1, field.GetCell(1, 1).SurroundingMineCnt);
+
+            Assert.AreEqual(0, field.GetCell(0, 0).SurroundingMineCnt);
         }
     }
 }

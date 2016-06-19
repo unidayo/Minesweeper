@@ -44,12 +44,39 @@ namespace Minesweeper
             }
             return null;
         }
+        private IList<Cell> getAdjacentCells(int row, int colum)
+        {
+            var ret = new List<Cell>();
+            foreach (var cell in _cellList)
+            {
+                if (cell.Row == row && cell.Column == colum)
+                    continue;
+                bool isLineAdjacent = cell.Row >= row - 1 && cell.Row <= row + 1;
+                bool isColumnAdjacent = cell.Column >= colum - 1 && cell.Column <= colum + 1;
+                if (isLineAdjacent && isColumnAdjacent)
+                    ret.Add(cell);
+            }
+            return ret;
+        }
+
+        public void SetMine(int row, int column)
+        {
+            Cell cell = GetCell(row, column);
+            cell.SetMine();
+
+            foreach (var adjCell in getAdjacentCells(row, column))
+            {
+                int currentSurMineCnt = adjCell.SurroundingMineCnt;
+                adjCell.SetSurroundingMineCnt(currentSurMineCnt + 1);
+            }
+        }
         public void MarkCell(int row, int column)
         {
             Cell cell = GetCell(row, column);
             cell.ChangeMark();
             onCellChanged(cell);
         }
+
         public void OpenCell(int row, int column)
         {
             Cell cell = GetCell(row, column);

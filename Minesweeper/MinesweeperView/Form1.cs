@@ -24,7 +24,7 @@ namespace MinesweeperView
 
             // todo:const field -> randam map
             var fieldMap = new List<string> { "......*...",
-                                              "..*.....*.",
+                                              "........*.",
                                               ".....*....",
                                               ".....*..*.",
                                               ".*........"};

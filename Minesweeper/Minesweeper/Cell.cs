@@ -20,7 +20,7 @@ namespace Minesweeper
         private bool _hasMine;
         private bool _isOpen = false;
         private CELL_MARK _mark = CELL_MARK.NONE;
-        private int _surroungingMineCnt;
+        private int _surroungingMineCnt = 0;
 
         public Cell(int row, int column)
         {

@@ -39,14 +39,14 @@ namespace Minesweeper
             return new Field(rowCnt, colCnt);
         }
 
-        private static void setMine(IList<string> lineList, Field ret)
+        private static void setMine(IList<string> lineList, Field field)
         {
             for (int row = 0; row < lineList.Count; row++)
             {
                 for (int col = 0; col < lineList[row].Length; col++)
                 {
                     if (isMine(lineList[row][col]))
-                        ret.GetCell(row, col).SetMine();
+                        field.SetMine(row, col);
                 }
             }
         }
