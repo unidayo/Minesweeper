@@ -31,21 +31,23 @@ namespace Minesweeper
 
         public int Row { get { return _row; } }
         public int Column { get { return _column; } }
+
         public bool HasMine { get { return _hasMine; } }
+        public int SurroundingMineCnt { get { return _surroungingMineCnt; } }
 
         public bool IsOpen { get { return _isOpen; } }
         public CELL_MARK Mark { get { return _mark; } }
-        public int SurroundingMineCnt { get { return _surroungingMineCnt; } }
+
+        public void Open()
+        {
+            _isOpen = true;
+        }
 
         public void ChangeMark()
         {
             if (_mark == CELL_MARK.NONE)          _mark = CELL_MARK.FLAG;
             else if (_mark == CELL_MARK.FLAG)     _mark = CELL_MARK.QUESTION;
             else if (_mark == CELL_MARK.QUESTION) _mark = CELL_MARK.NONE;
-        }
-        public void Open()
-        {
-            _isOpen = true;
         }
         public void SetMine()
         {
