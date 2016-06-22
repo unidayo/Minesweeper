@@ -13,9 +13,9 @@ namespace MinesweeperView
 {
     public partial class Form1 : Form
     {
-        const int ROW_CNT = 10;
-        const int COL_CNT = 10;
-        const int MINE_CNT = 15;
+        const int ROW_CNT = 16;
+        const int COL_CNT = 30;
+        const int MINE_CNT = 99;
         private Field _field;
 
         public Form1()
