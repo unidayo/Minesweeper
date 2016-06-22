@@ -58,6 +58,22 @@ namespace Minesweeper
             }
             return ret;
         }
+        private IList<Cell> getCellNextTo(int row, int column)
+        {
+            var ret = new List<Cell>();
+            foreach (var cell in _cellList)
+            {
+                if (cell.Row == row - 1 && cell.Column == column)
+                    ret.Add(cell);
+                if (cell.Row == row && cell.Column == column - 1)
+                    ret.Add(cell);
+                if (cell.Row == row && cell.Column == column + 1)
+                    ret.Add(cell);
+                if (cell.Row == row + 1 && cell.Column == column)
+                    ret.Add(cell);
+            }
+            return ret;
+        }
 
         public void SetMine(int row, int column)
         {
@@ -80,10 +96,21 @@ namespace Minesweeper
         public void OpenCell(int row, int column)
         {
             Cell cell = GetCell(row, column);
-            cell.Open();
-            onCellChanged(cell);
-            if(cell.HasMine)
-                onMineOpened();
+            if (!cell.IsOpen)
+            {
+                cell.Open();
+                onCellChanged(cell);
+
+                if (cell.HasMine)
+                    onMineOpened();
+                else if (cell.SurroundingMineCnt == 0)
+                {
+                    foreach (var nexeCell in getCellNextTo(row, column))
+                    {
+                        this.OpenCell(nexeCell.Row, nexeCell.Column);
+                    }
+                }
+            }
         }
 
         private void onCellChanged(Cell cell)

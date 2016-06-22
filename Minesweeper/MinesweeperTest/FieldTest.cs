@@ -33,10 +33,14 @@ namespace MinesweeperTest
         }
 
         [TestMethod]
-        public void OpenCell()
+        public void OpenCellNoMineCell()
         {
             field.OpenCell(1, 1);
             Assert.IsTrue(field.GetCell(1, 1).IsOpen);
+
+            Assert.IsTrue(field.GetCell(0, 0).IsOpen);
+            Assert.IsTrue(field.GetCell(0, 1).IsOpen);
+            Assert.IsTrue(field.GetCell(1, 0).IsOpen);
         }
 
         [TestMethod]
