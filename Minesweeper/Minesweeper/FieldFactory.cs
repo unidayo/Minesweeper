@@ -39,6 +39,24 @@ namespace Minesweeper
             return new Field(rowCnt, colCnt);
         }
 
+        public Field RandomMine(int lineCount, int columnCount, int mineCount)
+        {
+            var random = new Random();
+            var ret = new Field(lineCount, columnCount);
+            int setttedMineCount = 0;
+            while (setttedMineCount < mineCount)
+            {
+                int rRow = random.Next(lineCount);
+                int rCol = random.Next(columnCount);
+                if (ret.GetCell(rRow, rCol).HasMine)
+                    continue;
+
+                ret.SetMine(rRow, rCol);
+                setttedMineCount++;
+            }
+            return ret;
+        }
+
         private static void setMine(IList<string> lineList, Field field)
         {
             for (int row = 0; row < lineList.Count; row++)

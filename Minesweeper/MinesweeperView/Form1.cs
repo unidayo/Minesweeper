@@ -13,8 +13,9 @@ namespace MinesweeperView
 {
     public partial class Form1 : Form
     {
-        const int ROW_CNT = 5;
+        const int ROW_CNT = 10;
         const int COL_CNT = 10;
+        const int MINE_CNT = 15;
         private Field _field;
 
         public Form1()
@@ -22,13 +23,14 @@ namespace MinesweeperView
             InitializeComponent();
             createFieldComponent();
 
-            // todo:const field -> randam map
-            var fieldMap = new List<string> { "......*...",
-                                              "........*.",
-                                              ".....*....",
-                                              ".....*..*.",
-                                              ".*........"};
-            _field = new FieldFactory().ReadLineList(fieldMap);
+            //// todo:const field -> randam map
+            //var fieldMap = new List<string> { "......*...",
+            //                                  "..*.....*.",
+            //                                  ".....*....",
+            //                                  ".....*..*.",
+            //                                  ".*........"};
+            //_field = new FieldFactory().ReadLineList(fieldMap);
+            _field = new FieldFactory().RandomMine(ROW_CNT, COL_CNT, MINE_CNT);
             _field.CellChanged += Update;
             _field.MineOpened += GameOver;
         }
@@ -97,12 +99,13 @@ namespace MinesweeperView
 
         private void BtnReset_Click(object sender, EventArgs e)
         {
-            var fieldMap = new List<string> { "......*...",
-                                              "..*.....*.",
-                                              ".....*....",
-                                              ".....*..*.",
-                                              ".*........"};
-            _field = new FieldFactory().ReadLineList(fieldMap);
+            //var fieldMap = new List<string> { "......*...",
+            //                                  "..*.....*.",
+            //                                  ".....*....",
+            //                                  ".....*..*.",
+            //                                  ".*........"};
+            //_field = new FieldFactory().ReadLineList(fieldMap);
+            _field = new FieldFactory().RandomMine(ROW_CNT, COL_CNT, MINE_CNT);
             _field.CellChanged += Update;
             _field.MineOpened += GameOver;
 

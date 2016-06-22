@@ -24,6 +24,25 @@ namespace MinesweeperTest
         }
 
         [TestMethod]
+        public void RandomMineField()
+        {
+            Field ret = new FieldFactory().RandomMine(4, 5, 2);
+            Assert.AreEqual(4, ret.LineCount, "行数");
+            Assert.AreEqual(5, ret.ColumnCount, "列数");
+
+            int mineCnt = 0;
+            for (int row = 0; row < ret.LineCount; row++)
+            {
+                for (int col = 0; col < ret.ColumnCount; col++)
+                {
+                    if (ret.GetCell(row, col).HasMine)
+                        mineCnt++;
+                }
+            }
+            Assert.AreEqual(2, mineCnt, "爆弾の数");
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ReadLineList_argsMustRectangleMap()
         {
